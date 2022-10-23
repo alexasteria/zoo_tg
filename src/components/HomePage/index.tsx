@@ -40,7 +40,7 @@ const HomePage: React.FC<{ cart?: CartItem[] }> = ({ cart }) => {
               />
             </svg>
           </div>
-          <div>Назад</div>
+          <div style={{ fontWeight: 700, lineHeight: "19px" }}>Назад</div>
         </div>
       )}
       {count !== 0 && (
@@ -64,7 +64,9 @@ const HomePage: React.FC<{ cart?: CartItem[] }> = ({ cart }) => {
           </div>
         </div>
       )}
-      <div style={{ height: "100vh", overflow: "scroll" }}>
+      <div
+        style={{ height: "100vh", overflow: "scroll", padding: "0 0 40px 0" }}
+      >
         <Outlet />
       </div>
     </div>

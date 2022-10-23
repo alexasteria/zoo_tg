@@ -14,6 +14,7 @@ const ProductCard: React.FC<{
       ? element.prices.items[0].price
       : undefined;
   if (!price) throw Error("стоимость товара отсутствует");
+  const maxCount = element.item?.quantity || product.quantity;
   return (
     <div
       key={product.id}
@@ -83,33 +84,31 @@ const ProductCard: React.FC<{
                   {countInCart}
                 </div>
                 <div style={{ width: "30%" }}>
-                  <button
-                    onClick={() => {
-                      onIncrementItem(
-                        {
-                          id: element.id,
-                          name: product.name,
-                          price: price,
-                          variant: element.properties
-                            ?.filter((prop) => prop.value)
-                            .map((prop) => prop.value),
-                          count: 1,
-                        },
-                        element.item?.quantity
-                      );
-                    }}
-                    style={{
-                      float: "left",
-                      margin: 5,
-                      color: "#482d06",
-                      display:
-                        element.item && countInCart < element.item.quantity
-                          ? "block"
-                          : "none",
-                    }}
-                  >
-                    +1
-                  </button>
+                  {countInCart < maxCount && (
+                    <button
+                      onClick={() => {
+                        onIncrementItem(
+                          {
+                            id: element.id,
+                            name: product.name,
+                            price: price,
+                            variant: element.properties
+                              ?.filter((prop) => prop.value)
+                              .map((prop) => prop.value),
+                            count: 1,
+                          },
+                          maxCount
+                        );
+                      }}
+                      style={{
+                        float: "left",
+                        margin: 5,
+                        color: "#482d06",
+                      }}
+                    >
+                      +1
+                    </button>
+                  )}
                 </div>
               </div>
             )}
