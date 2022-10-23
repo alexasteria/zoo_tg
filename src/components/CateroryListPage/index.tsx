@@ -22,7 +22,7 @@ const CategoryListPage = () => {
   const { categories } = useGetCategories();
   const goToCategory = useCallback(
     (id: number) => {
-      go(`/${id}`);
+      go(`/zoo_tg/${id}`);
     },
     [go]
   );

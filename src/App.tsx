@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CategoryListPage from "./components/CateroryListPage";
 import ProductListPage from "./components/ProductListPage";
@@ -14,9 +14,6 @@ export type CartItem = {
 
 const App: React.FC = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
-  useEffect(() => {
-    console.log(cart);
-  }, [cart]);
   const onIncrementItem = useCallback(
     (item: CartItem, maxCount?: number) => {
       if (!maxCount) throw Error("Максимально доступное количество неизвестно");
@@ -63,7 +60,7 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage cart={cart} />}>
+        <Route path="/zoo_tg" element={<HomePage cart={cart} />}>
           <Route index element={<CategoryListPage />} />
           <Route
             path=":categoryID"
