@@ -53,6 +53,7 @@ const ProductCard: React.FC<{
                   display: "flex",
                   justifyContent: "space-between",
                   width: "100%",
+                  alignItems: "center",
                 }}
               >
                 <div style={{ width: "30%" }}>
@@ -68,7 +69,17 @@ const ProductCard: React.FC<{
                         count: 1,
                       })
                     }
-                    style={{ float: "left", margin: 5, color: "#482d06" }}
+                    style={{
+                      backgroundColor: "#b65454",
+                      border: "none",
+                      color: "white",
+                      padding: "8px",
+                      textAlign: "center",
+                      textDecoration: "none",
+                      display: "inline-block",
+                      fontSize: 12,
+                      borderRadius: 4,
+                    }}
                   >
                     -1
                   </button>
@@ -101,9 +112,15 @@ const ProductCard: React.FC<{
                         );
                       }}
                       style={{
-                        float: "left",
-                        margin: 5,
-                        color: "#482d06",
+                        backgroundColor: "#4CAF50",
+                        border: "none",
+                        color: "white",
+                        padding: "8px",
+                        textAlign: "center",
+                        textDecoration: "none",
+                        display: "inline-block",
+                        fontSize: 12,
+                        borderRadius: 4,
                       }}
                     >
                       +1
