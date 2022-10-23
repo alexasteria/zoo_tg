@@ -56,7 +56,6 @@ const HomePage: React.FC<{ cart?: CartItem[] }> = ({ cart }) => {
           }}
         >
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            {" "}
             <div>Выбрано товаров - {count} </div>
             <div>на сумму: {sum}</div>
           </div>

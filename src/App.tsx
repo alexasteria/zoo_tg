@@ -15,10 +15,15 @@ export type CartItem = {
 const App: React.FC = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const onIncrementItem = useCallback(
-    (item: CartItem) => {
+    (item: CartItem, maxCount?: number) => {
+      if (!maxCount) throw Error("Максимально доступное количество неизвестно");
       if (cart.map((p) => p.id).includes(item.id)) {
         const newCart = cart.map((p) => {
           if (p.id !== item.id) return p;
+          if (p.count + 1 > maxCount) {
+            //превышено доступное количество
+            return p;
+          }
           return {
             ...p,
             count: p.count + 1,

@@ -5,7 +5,7 @@ import { CartItem } from "../../App";
 const ProductCard: React.FC<{
   product: Product;
   element: ProductElement;
-  onIncrementItem: (item: CartItem) => void;
+  onIncrementItem: (item: CartItem, maxCount?: number) => void;
   onDecrementItem: (item: CartItem) => void;
   countInCart: number;
 }> = ({ product, element, onDecrementItem, onIncrementItem, countInCart }) => {
@@ -28,19 +28,16 @@ const ProductCard: React.FC<{
     >
       <div style={{ display: "flex" }}>
         <div>
-          <div
-            style={{
-              height: 100,
-              minWidth: 100,
-              margin: "10px 25px",
-              backgroundImage: product.image_url
-                ? "url(" + product.image_url + ")"
-                : undefined,
-              backgroundSize: "contain",
-              backgroundPosition: "center 35%",
-              backgroundRepeat: "no-repeat",
-              borderRadius: 13,
-            }}
+          <img
+            style={{ margin: 10 }}
+            alt={product.name}
+            height={100}
+            width={100}
+            src={
+              product.image_url
+                ? product.image_url
+                : "https://www.steaua-dunarii.ro/client/img/image-not-found.png"
+            }
           />
           <div
             style={{
@@ -49,49 +46,73 @@ const ProductCard: React.FC<{
               justifyContent: "center",
             }}
           >
-            <div style={{ display: "flex", bottom: 0 }}>
-              <button
-                onClick={() =>
-                  onDecrementItem({
-                    id: element.id,
-                    name: product.name,
-                    price: price,
-                    variant: element.properties
-                      ?.filter((prop) => prop.value)
-                      .map((prop) => prop.value),
-                    count: 1,
-                  })
-                }
-                style={{ float: "left", margin: 5, color: "#482d06" }}
-              >
-                -1
-              </button>
-              <span
+            {product.available === "Y" && (
+              <div
                 style={{
-                  margin: "auto",
-                  fontSize: 25,
-                  fontWeight: "bold",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "100%",
                 }}
               >
-                {countInCart}
-              </span>
-              <button
-                onClick={() => {
-                  onIncrementItem({
-                    id: element.id,
-                    name: product.name,
-                    price: price,
-                    variant: element.properties
-                      ?.filter((prop) => prop.value)
-                      .map((prop) => prop.value),
-                    count: 1,
-                  });
-                }}
-                style={{ float: "left", margin: 5, color: "#482d06" }}
-              >
-                +1
-              </button>
-            </div>
+                <div style={{ width: "30%" }}>
+                  <button
+                    onClick={() =>
+                      onDecrementItem({
+                        id: element.id,
+                        name: product.name,
+                        price: price,
+                        variant: element.properties
+                          ?.filter((prop) => prop.value)
+                          .map((prop) => prop.value),
+                        count: 1,
+                      })
+                    }
+                    style={{ float: "left", margin: 5, color: "#482d06" }}
+                  >
+                    -1
+                  </button>
+                </div>
+                <div
+                  style={{
+                    margin: "auto",
+                    fontSize: 25,
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  {countInCart}
+                </div>
+                <div style={{ width: "30%" }}>
+                  <button
+                    onClick={() => {
+                      onIncrementItem(
+                        {
+                          id: element.id,
+                          name: product.name,
+                          price: price,
+                          variant: element.properties
+                            ?.filter((prop) => prop.value)
+                            .map((prop) => prop.value),
+                          count: 1,
+                        },
+                        element.item?.quantity
+                      );
+                    }}
+                    style={{
+                      float: "left",
+                      margin: 5,
+                      color: "#482d06",
+                      display:
+                        element.item && countInCart < element.item.quantity
+                          ? "block"
+                          : "none",
+                    }}
+                  >
+                    +1
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
         <div style={{ margin: "10px 10px 0 0" }}>

@@ -6,7 +6,7 @@ import { CartItem } from "../../App";
 const RenderCards: React.FC<{
   products: Product[];
   cart: CartItem[];
-  onIncrementItem: (item: CartItem) => void;
+  onIncrementItem: (item: CartItem, maxCount?: number) => void;
   onDecrementItem: (item: CartItem) => void;
 }> = ({ products, cart, onDecrementItem, onIncrementItem }) => {
   return (

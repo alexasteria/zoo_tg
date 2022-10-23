@@ -2,7 +2,6 @@ import React, { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useGetProducts } from "./use_get_products";
 import { useGetCategories } from "../CateroryListPage/use_get_categories";
-import { Product, ProductElement } from "../types";
 import { CartItem } from "../../App";
 import RenderCards from "./RenderCards";
 
