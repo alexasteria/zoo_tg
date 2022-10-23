@@ -191,6 +191,7 @@ const getElements = (element: ProductElement, available: boolean) => {
         justifyContent: "space-between",
         borderBottom: "1px #fff solid",
         padding: "5px 0",
+        color: "#FFF",
       }}
     >
       <div>
