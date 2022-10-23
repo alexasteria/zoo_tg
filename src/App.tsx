@@ -1,26 +1,78 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import CategoryListPage from "./components/CateroryListPage";
+import ProductListPage from "./components/ProductListPage";
+import HomePage from "./components/HomePage";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+export type CartItem = {
+  id: number;
+  name: string;
+  price: number;
+  variant?: string[];
+  count: number;
+};
+
+const App: React.FC = () => {
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const onIncrementItem = useCallback(
+    (item: CartItem) => {
+      if (cart.map((p) => p.id).includes(item.id)) {
+        const newCart = cart.map((p) => {
+          if (p.id !== item.id) return p;
+          return {
+            ...p,
+            count: p.count + 1,
+          };
+        });
+        return setCart(newCart);
+      }
+      const newCart = [...cart, { ...item, count: 1 }];
+      setCart(newCart);
+    },
+    [cart, setCart]
   );
-}
+  const onDecrementItem = useCallback(
+    (item: CartItem) => {
+      const cartElement = cart.find((p) => p.id === item.id);
+      if (!cartElement) {
+        return;
+      }
+      if (cartElement.count === 1) {
+        return setCart(cart.filter((p) => p.id !== item.id));
+      }
+      return setCart([
+        ...cart.map((p) => {
+          if (p.id !== item.id) return p;
+          return {
+            ...p,
+            count: p.count - 1,
+          };
+        }),
+      ]);
+    },
+    [cart, setCart]
+  );
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage cart={cart} />}>
+          <Route index element={<CategoryListPage />} />
+          <Route
+            path=":categoryID"
+            element={
+              <ProductListPage
+                cart={cart}
+                onIncrementItem={onIncrementItem}
+                onDecrementItem={onDecrementItem}
+              />
+            }
+          >
+            {/*<Route path=":productID" element={<ProductPage />} />*/}
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
 export default App;
