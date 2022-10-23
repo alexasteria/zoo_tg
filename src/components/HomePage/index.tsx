@@ -13,7 +13,7 @@ const HomePage: React.FC<{ cart?: CartItem[] }> = ({ cart }) => {
     sum = sum + p.price * p.count;
   });
   return (
-    <div>
+    <div style={{ maxHeight: "100vh", overflow: "hidden" }}>
       {categoryID && (
         <div
           style={{
@@ -67,7 +67,7 @@ const HomePage: React.FC<{ cart?: CartItem[] }> = ({ cart }) => {
         >
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div>Выбрано товаров - {count} </div>
-            <div>на сумму: {sum}</div>
+            <div>на сумму: {sum}₽</div>
           </div>
           <div style={{ fontSize: 12, textAlign: "center", color: "#888d8d" }}>
             Нажмите, чтобы завершить оформление заказа
@@ -75,9 +75,14 @@ const HomePage: React.FC<{ cart?: CartItem[] }> = ({ cart }) => {
         </div>
       )}
       <div
-        style={{ height: "100vh", overflow: "scroll", padding: "0 0 40px 0" }}
+        style={{
+          height: "calc(100vh - 50px)",
+          overflow: "scroll",
+        }}
       >
-        <Outlet />
+        <div style={{ paddingBottom: 60 }}>
+          <Outlet />
+        </div>
       </div>
     </div>
   );

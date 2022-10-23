@@ -177,7 +177,7 @@ const getElements = (element: ProductElement, available: boolean) => {
         }}
       >
         <div>Цена:</div>
-        <div>{price.price} руб.</div>
+        <div>{price.price}₽</div>
       </div>
     );
   }
@@ -204,12 +204,11 @@ const getElements = (element: ProductElement, available: boolean) => {
           return (
             <div style={{ color: "#FFF" }} key={i}>
               {ProductProps[p.property_id].title}: {p.value}
-              {/*{price.sale ? price.sale : ""}*/}
             </div>
           );
         })}
       </div>
-      <div>{price.price} руб.</div>
+      <div>{price.price}₽</div>
     </div>
   );
 };
